@@ -23,20 +23,18 @@ int	main(void)
 	win = mlx_new_window (mlx, WIN_WIDTH, WIN_HEIGHT, "so_long");
 	t_mlx.mlx = mlx;
 	t_mlx.win = win;
+	t_mlx.img = ft_calloc(sizeof(t_img), 1);
+	t_mlx.img->x = 132;
+	t_mlx.img->y = 132;
 	mlx_key_hook (t_mlx.win, &ft_keyboard, &t_mlx);
 	mlx_hook (t_mlx.win, 17, 1L << 3, ft_close, &t_mlx);
-	fd = open ("map1.txt", O_RDONLY);
+	fd = open ("map1.ber", O_RDONLY);
 	if (fd != -1)
 	{
+		mlx_clear_window(t_mlx.mlx, t_mlx.win);
 		ft_print_map (fd, &t_mlx);
-		close (fd);
-	}
-	fd = open("map1.txt", O_RDONLY);
-	if (fd != -1)
-	{
 		ft_print_objects (fd, &t_mlx);
 		close (fd);
 	}
-	mlx_loop_hook (t_mlx.mlx, ft_animation, &t_mlx);
 	mlx_loop (t_mlx.mlx);
 }

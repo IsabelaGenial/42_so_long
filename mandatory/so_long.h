@@ -3,23 +3,32 @@
 
 #include <mlx.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "get_next_line.h"
+#include "../GNL/get_next_line.h"
 
-//#define MAP_WIDTH 20
-//#define MAP_HEIGHT 20
+
 #define TILE_SIZE 66
 #define WIN_WIDTH 1188
 #define WIN_HEIGHT 990
+typedef struct s_img
+{
+	char *path;
+	int x;
+	int y;
+	int width;
+	int height;
+}   t_img;
+
 typedef struct s_data
 {
-    void *mlx;
-    void *win;
-    void *img;
-    void *img2;
+    void    *mlx;
+    void    *win;
+	t_img   *img;
+	char    *img2;
 }   t_data;
+
+
 
 int ft_keyboard(int key, t_data *t_mlx);
 int ft_close(t_data *t_mlx);
