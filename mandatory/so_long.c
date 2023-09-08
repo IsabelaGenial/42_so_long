@@ -12,31 +12,15 @@
 
 #include "so_long.h"
 
-int	main(int argv, char **argc)
+int	main(int argc, char **argv)
 {
-	if(argv != 2)
-		return (write(1, "Sorry, we need a map description {./so_long [map]}",51));
-	t_data	t_mlx;
-	void	*mlx;
-	void	*win;
-	int		fd;
+	t_game world;
 
-	mlx = mlx_init ();
-	win = mlx_new_window (mlx, WIN_WIDTH, WIN_HEIGHT, "so_long");
-	t_mlx.mlx = mlx;
-	t_mlx.win = win;
-	t_mlx.img = ft_calloc(sizeof(t_img), 1);
-	t_mlx.img->x = 132;
-	t_mlx.img->y = 132;
-	mlx_key_hook (t_mlx.win, &ft_keyboard, &t_mlx);
-	mlx_hook (t_mlx.win, 17, 1L << 3, ft_close, &t_mlx);
-	fd = open (*argc, O_RDONLY);
-	if (fd != -1)
-	{
-		mlx_clear_window(t_mlx.mlx, t_mlx.win);
-		ft_print_map (fd, &t_mlx);
-		ft_print_objects (fd, &t_mlx);
-		close (fd);
-	}
-	mlx_loop (t_mlx.mlx);
+	if(argc || *argv[1])
+		;
+	world.mlx = mlx_init ();
+	world.win->win_ptr = mlx_new_window (world.mlx, WIN_WIDTH, WIN_HEIGHT, "so_long");
+	mlx_key_hook (world.win->win_ptr, &ft_keyboard, &world);
+	mlx_hook (world.win->win_ptr, 17, 1L << 3, ft_close, &world);
+	mlx_loop (world.mlx);
 }
