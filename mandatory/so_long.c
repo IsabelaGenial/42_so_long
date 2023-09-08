@@ -12,8 +12,10 @@
 
 #include "so_long.h"
 
-int	main(void)
+int	main(int argv, char **argc)
 {
+	if(argv != 2)
+		return (write(1, "Sorry, we need a map description {./so_long [map]}",51));
 	t_data	t_mlx;
 	void	*mlx;
 	void	*win;
@@ -28,7 +30,7 @@ int	main(void)
 	t_mlx.img->y = 132;
 	mlx_key_hook (t_mlx.win, &ft_keyboard, &t_mlx);
 	mlx_hook (t_mlx.win, 17, 1L << 3, ft_close, &t_mlx);
-	fd = open ("map1.ber", O_RDONLY);
+	fd = open (*argc, O_RDONLY);
 	if (fd != -1)
 	{
 		mlx_clear_window(t_mlx.mlx, t_mlx.win);

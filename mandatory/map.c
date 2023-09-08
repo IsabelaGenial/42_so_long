@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: igenial <igenial@student.42sp.org.br>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/06 21:17:21 by igenial           #+#    #+#             */
+/*   Updated: 2023/09/06 21:17:26 by igenial          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void ft_print_map(int fd, t_data *t_mlx)
 {
     int y;
     int x;
-    const char *relative_path = {"gram.xpm"};
+    const char *relative_path = {"../images/gram.xpm"};
 
     y = 0;
 	while (y < (WIN_HEIGHT/TILE_SIZE))
@@ -26,7 +38,7 @@ void ft_print_objects(int fd, t_data *t_mlx)
     int y;
     int x;
     char *line;
-    const char *relative_path = {"tree.xpm"};
+    const char *relative_path = {"../images/tree.xpm"};
 
     y = 0;
 
