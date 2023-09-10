@@ -63,11 +63,12 @@ typedef struct s_game
 //image bank.//
 void ft_image_bank_player (t_game *see);
 void ft_image_bank_map (t_game *see);
+//.........//
+
 
 int     ft_keyboard(int key, t_game *t_game);
 int     ft_close(t_game *t_game);
 int     ft_animation(void *arg);
 void    ft_print_map(int fd, t_game *t_game);
-char    *get_next_line(int fd);
 void    ft_print_objects(int fd, t_game *t_game);
 #endif
