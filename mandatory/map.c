@@ -1,25 +1,6 @@
 
 #include "so_long.h"
 
-void ft_print_map (t_game *game) {
-	int y;
-	int x;
-
-	y = 0;
-	ft_image_bank_map(game);
-	while (game->map->map_path[y]) {
-		x = 0;
-		while (game->map->map_path[y][x]) {
-			if (game->map->map_path[y][x] == '1') {
-				game->img->img = mlx_xpm_file_to_image(game->mlx, game->img->path[1], &game->img->width,
-				                                       &game->img->height); //talvez &.
-				mlx_put_image_to_window(game->mlx, game->win, game->img->path, (x * TILE_SIZE), (y * TILE_SIZE));
-			}
-			x++;
-		}
-		y++;
-	}
-}
 
 void ft_save_map(char *map, t_game *game)
 {
@@ -27,39 +8,46 @@ void ft_save_map(char *map, t_game *game)
 	int count;
 	int y;
 
+	y = 0;
 	fd = open(map, O_RDONLY);
-	count = 0;
+	game->map->y_axis = ft_fd_len(fd);
 	if (!fd) {
 		ft_printf("error in open file map");
+		return;
 	}
-	y = 0;
-	game->map->map_path = ft_calloc ((count + 1), sizeof (char *));
+	game->map->map_path = ft_calloc ((game->map->y_axis + 1), sizeof (char *));
+	close(fd);
+	if(!game->map->map_path)
+	{
+		ft_printf("error in malloc map path");
+		return;
+	}
 	open (map, O_RDONLY);
+	game->map->map_path[y] = get_next_line(fd);
 	while(game->map->map_path[y])
 	{
-		game->map->map_path[y] = get_next_line(fd);
 		y++;
+		game->map->map_path[y] = get_next_line(fd);
 	}
-	game->map->y_axis = y;
 	close(fd);
 }
 
-int ft_check_wall (t_game *game)
+int ft_check_wall (t_game **game)
 {
 		int y_axis;
 		int x_axis;
 
 		y_axis = 0;
-		game->map->x_axis = (int)ft_strlen(game->map->map_path[0]);
-		while (game->map->map_path[y_axis])
+	(*game)->map->x_axis = (int)ft_strlen((*game)->map->map_path[0]);
+		while ((*game)->map->map_path[y_axis])
 		{
 			x_axis = 0;
-			while (game->map->map_path[y_axis][x_axis])
+			while ((*game)->map->map_path[y_axis][x_axis])
 			{
-				if(y_axis == 0 || y_axis == game->map->y_axis ||
-				   x_axis == 0 || x_axis == game->map->x_axis)
+				if(y_axis == 0 || y_axis == (*game)->map->y_axis ||
+				   x_axis == 0 || x_axis == (*game)->map->x_axis)
 				{
-					if (game->map->map_path[y_axis][x_axis] == 1)
+					if ((*game)->map->map_path[y_axis][x_axis] == 1)
 						x_axis++;
 					else
 						return(ft_printf ("ERROR in WALL"));
@@ -71,51 +59,31 @@ int ft_check_wall (t_game *game)
 		return(1);
 }
 
-int ft_close(t_game *game)
+int ft_fd_len(int fd)
+{
+	int n;
+	char *line;
+
+	line = get_next_line(fd);
+	n = 0;
+	while (line != NULL)
 	{
-		mlx_destroy_window(game->mlx,game->win);
-		mlx_destroy_display(game->mlx);
-		free(game->img);
-		free(game->player);
-		free(game->mlx);
-		return (0);
+		n++;
+		free(line);
+		line = get_next_line(fd);
+
 	}
-
-int ft_keyboard(int key, t_game *game)
-{
-	if (key ==  65307)
-		ft_close(game->mlx);
-	if (key == 65363)
-		game->player->x += 5;
-	return (0);
+	free(line);
+	return (n);
 }
 
-void ft_image_bank_player (t_game *see)
+void ft_memory(t_game **game)
 {
-	see->player->player->path = ft_calloc(12,sizeof(char *));
-	if (!see->player->player->path)
+	*game = ft_calloc(1, sizeof (t_game));
+	(*game)->map = ft_calloc(1, sizeof(t_map));
+	(*game)->player = ft_calloc(1, sizeof(t_player));
+	(*game)->img = ft_calloc(1, sizeof(t_img));
+	(*game)->win = ft_calloc(1, sizeof(t_win));
+	if(!*game || !(*game)->map || !(*game)->img || !(*game)->player || !(*game)->win)
 		return;
-	see->player->player->path[0] = "./image/cat/1.xpm";
-	see->player->player->path[1] = "./image/cat/2.xpm";
-	see->player->player->path[2] = "./image/cat/3.xpm";
-	see->player->player->path[3] = "./image/cat/4.xpm";
-	see->player->player->path[4] = "./image/cat/5.xpm";
-	see->player->player->path[5] = "./image/cat/6.xpm";
-	see->player->player->path[6] = "./image/cat/7.xpm";
-	see->player->player->path[7] = "./image/cat/8.xpm";
-	see->player->player->path[8] = "./image/cat/9.xpm";
-	see->player->player->path[9] = "./image/cat/10.xpm";
-	see->player->player->path[10] = "./image/cat/11.xpm";
-	see->player->player->path[11] = "./image/cat/12.xpm";
-}
-
-void ft_image_bank_map (t_game *see)
-{
-	see->img->path = ft_calloc(4, sizeof(char *));
-	if(!see->img->path)
-		return;
-	see->img->path[0] = "./images/gram.xpm";
-	see->img->path[1] = "./images/tree.xpm";
-	see->img->path[2] = "./images/pay.xpm";
-	see->img->path[3] = "./images/ghost.xpm";
 }

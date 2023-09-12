@@ -67,12 +67,15 @@ void	ft_image_bank_player (t_game *see);
 void	ft_image_bank_map (t_game *see);
 
 //map.//
-int		ft_check_wall (t_game *game);
+int		ft_check_wall (t_game **game);
+int     ft_fd_len(int fd);
 void	ft_print_map (t_game *game);
 void    ft_save_map(char *map, t_game *game);
 
 //window//
+void    ft_memory(t_game **game);
+void    ft_open_window(t_game *game);
 int     ft_keyboard(int key, t_game *game);
-int    ft_close(t_game *game);
+int     ft_close(t_game *game);
 
 #endif
