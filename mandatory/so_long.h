@@ -36,14 +36,10 @@ typedef struct S_MAP
 	int     player_count;
 	int     exit_counter;
 	char    **map_path;
-	char	*exit_path;
-	void	*exit_img;
-	char	*ghost_path;
-	void	*ghost_img;
-	char	*floor_path;
-	void	*floor_img;
-	char	*wall_path;
-	void	*wall_img;
+	t_img 	*exit;
+	t_img	*ghost;
+	t_img	*floor;
+	t_img	*wall;
 }			t_map;
 
 typedef struct S_WIN
@@ -81,9 +77,10 @@ int     ft_keyboard(int key, t_game **game);
 void     ft_close(t_game **game);
 void    ft_clear_grid(t_game **game);
 int     ft_shutdown_game(t_game **game);
-void	ft_print_map (t_game *game);
+void	ft_print_map (t_game **game);
 
 //back windows.//
 void    ft_struct_supply(t_game **game);
+void ft_render_img(t_game **game);
 
 #endif

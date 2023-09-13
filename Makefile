@@ -1,6 +1,6 @@
 NAME         = so_long
 
-MANDATORY    = $(addprefix ./mandatory/, so_long.c  map.c util_win.c map_utils.c memory.c)
+MANDATORY    = $(addprefix ./mandatory/, so_long.c  map.c util_win.c map_utils.c memory.c utils_image.c)
 BONUS        = $(addprefix ./BONUS/, so_long_bonus.c)
 HEADER       = ./mandatory/so_long.h
 HEADER_UTILS = ./libfstonk/libft.h

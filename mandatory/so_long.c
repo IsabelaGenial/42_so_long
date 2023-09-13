@@ -21,6 +21,7 @@ int	main(int argc, char **argv)
 	ft_handle_map_input(argc, argv[1],&world);
 	world->mlx = mlx_init();
 	ft_open_window(&world);
+	ft_print_map (&world);
 	mlx_key_hook(world->win->win_ptr, ft_keyboard, &world);
 	mlx_hook(world->win->win_ptr, 17, 1L << 3, ft_shutdown_game, &world);
 	mlx_loop(world->mlx);
