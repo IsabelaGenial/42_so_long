@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 static char		*ft_read(int fd, char *rest);
 static char		*ft_get_line(char *temp_buffer);
 static char		*ft_get_rest(char *temp_buffer);
-static char		*ft_strjoin(char const *s1, char const *s2);
 
 char	*get_next_line(int fd)
 {
@@ -102,18 +101,4 @@ static char	*ft_get_rest(char *temp_buffer)
 	return (buffer);
 }
 
-static char	*ft_strjoin(char const *s1, char const *s2)
-{
-	size_t	lens1;
-	size_t	lens2;
-	char	*str;
 
-	lens1 = ft_strlen(s1);
-	lens2 = ft_strlen(s2);
-	str = ft_calloc(lens1 + lens2 + 1, sizeof(char));
-	if (!str)
-		return (NULL);
-	ft_strlcat(str, s1, lens1 + 1);
-	ft_strlcat(str, s2, lens1 + lens2 + 1);
-	return (str);
-}
