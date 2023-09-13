@@ -17,19 +17,12 @@ int	main(int argc, char **argv)
 {
 	t_game *world;
 
-	if(argc != 2) {
-		ft_printf("we need input map");
-		return (0);
-	}
-	ft_memory(&world);
-	ft_save_map(argv[1], world);
-	ft_printf("good");
-	ft_check_wall(&world);
-	ft_printf("the map have wall");
+
+	ft_handle_map_input(argc, argv[1],&world);
 	world->mlx = mlx_init();
-	ft_open_window(world);
+	ft_open_window(&world);
 	mlx_key_hook(world->win->win_ptr, ft_keyboard, &world);
-	mlx_hook(world->win->win_ptr, 17, 1L << 3, ft_close, &world);
+	mlx_hook(world->win->win_ptr, 17, 1L << 3, ft_shutdown_game, &world);
 	mlx_loop(world->mlx);
 
 }

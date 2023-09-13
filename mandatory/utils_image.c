@@ -43,18 +43,19 @@ void ft_print_map (t_game *game)
 		while (game->map->map_path[y][x])
 		{
 			if (game->map->map_path[y][x] == 1)
-				mlx_put_image_to_window(game->win->win_ptr,
-										game->map->wall_img,
-										(TILE_SIZE * x),
-										(TILE_SIZE * y));
+			{
+				mlx_put_image_to_window(&game->win->win_ptr,
+				                        &game->map->wall_img,
+				                        (TILE_SIZE * x),
+				                        (TILE_SIZE * y));
+			}
 			else
-				mlx_put_image_to_window(game->win->win_ptr,
-										game->map->floor_img,
+				mlx_put_image_to_window(&game->win->win_ptr,
+										&game->map->floor_img,
 										(TILE_SIZE * x),
 										(TILE_SIZE * y));
 			x++;
 		}
 		y++;
 	}
-
 }

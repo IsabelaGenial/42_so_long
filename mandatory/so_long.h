@@ -5,13 +5,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "../GNL/get_next_line.h"
-# include "../Printf/ft_printf.h"
+# include "../libfstonk/libft.h"
 
 
 # define TILE_SIZE 66
-//#define WIN_WIDTH 1188
-//#define WIN_HEIGHT 990
+# define CHAR_MAP	"EPC10G"
 
 typedef struct S_IMG
 {
@@ -40,6 +38,8 @@ typedef struct S_MAP
 	char    **map_path;
 	char	*exit_path;
 	void	*exit_img;
+	char	*ghost_path;
+	void	*ghost_img;
 	char	*floor_path;
 	void	*floor_img;
 	char	*wall_path;
@@ -67,15 +67,23 @@ void	ft_image_bank_player (t_game *see);
 void	ft_image_bank_map (t_game *see);
 
 //map.//
-int		ft_check_wall (t_game **game);
-int     ft_fd_len(int fd);
-void	ft_print_map (t_game *game);
-void    ft_save_map(char *map, t_game *game);
+int     ft_handle_map_input (int count_arg, char *map, t_game **game);
+int     ft_line_count(int fd);
+void    ft_save_map(char *map, t_game **game);
+void    ft_check_map(t_game **game);
+void    ft_check_object (t_game **game);
+int     ft_check_wall(t_game **game);
 
 //window//
 void    ft_memory(t_game **game);
-void    ft_open_window(t_game *game);
-int     ft_keyboard(int key, t_game *game);
-int     ft_close(t_game *game);
+void    ft_open_window(t_game **game);
+int     ft_keyboard(int key, t_game **game);
+void     ft_close(t_game **game);
+void    ft_clear_grid(t_game **game);
+int     ft_shutdown_game(t_game **game);
+void	ft_print_map (t_game *game);
+
+//back windows.//
+void    ft_struct_supply(t_game **game);
 
 #endif
