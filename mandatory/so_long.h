@@ -81,6 +81,7 @@ typedef struct 	S_GAME
 //image bank.//
 void    ft_image_bank_obj (t_game *see);
 void    ft_create_sprites (t_game *game);
+int     ft_render_window(t_game *game);
 void	ft_render_object(int x, int y, t_game *game);
 
 //map.//
@@ -93,17 +94,21 @@ int     ft_check_wall(t_game *game);
 
 
 //window//
-void    ft_memory(t_game *game);
+void    ft_input_validation(int count_arg, char * arg, t_game *game);
 void    ft_open_window(t_game *game);
-int     ft_keyboard(int key, t_game *game);
-void     ft_close(t_game *game);
+void    ft_event_win(t_game *game);
+void    ft_close(t_game *game);
 void    ft_clear_grid(t_game *game);
-int     ft_shutdown_game(t_game *game);
-void	ft_print_map (t_game *game);
+t_axis  ft_position(char element, t_game *game);
+void    ft_memory(t_game *game);
+int     ft_keyboard(int key, t_game *game);
 
-//back windows.//
+void    ft_walk_left(t_game *game);
+void    ft_walk_right(t_game *game);
+
+void    ft_walk_up(t_game *game);
 void    ft_struct_supply(t_game *game);
 void    ft_render_img(t_game *game);
-t_axis  ft_position(char element, t_game *game);
-
+int     ft_shutdown_game(t_game *game);
+void	ft_print_map (t_game *game);
 #endif

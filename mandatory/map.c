@@ -25,11 +25,6 @@ int ft_handle_map_input (int count_arg, char *map, t_game *game)
 	}
 	ft_memory(game);
 	ft_struct_supply(game);
-	ft_save_map(map, game);
-	ft_check_map(game);
-	ft_check_object(game);
-	ft_check_wall(game);
-	ft_image_bank_obj(game);
 	return (0);
 }
 

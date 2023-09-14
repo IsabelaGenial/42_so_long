@@ -9,6 +9,7 @@ void ft_image_bank_obj (t_game *see)
 	see->map->floor->obj->path = ft_calloc(2, sizeof(char *));
 	see->map->wall->obj->path = ft_calloc(2, sizeof(char *));
 	see->map->wall->obj->img = ft_calloc(1, sizeof(void *));
+	see->map->exit->path = ft_calloc(1, sizeof(char *));
 	if (!see->ghost->obj->path || !see->player->obj->path || !see->collect->obj->path
 		|| !see->map->floor->obj->path || !see->map->wall->obj->path)
 		ft_printf("ERROR: image bank error.");
@@ -20,31 +21,7 @@ void ft_image_bank_obj (t_game *see)
 	see->collect->obj->path[0] = "./images/pay.xpm";
 	see->map->floor->obj->path[0] = "./images/gram.xpm";
 	see->map->wall->obj->path[0] = "./images/tree.xpm";
+	see->map->exit->path[0] = "./images/exit.xpm";
 	*see->player->axis = ft_position('P',see);
 }
-
-void ft_print_map (t_game *game)
-{
-	int y;
-	int x;
-
-	y = 0;
-	while (game->map->map_grid[y])
-	{
-		x = 0;
-		while (game->map->map_grid[y][x])
-		{
-			if (game->map->map_grid[y][x] == '1')
-				mlx_put_image_to_window(game->mlx,game->win->win_ptr,
-										game->map->wall->obj->img, (TILE_SIZE * x), (TILE_SIZE * y));
-			else
-				mlx_put_image_to_window(game->mlx,game->win->win_ptr,
-										game->map->floor->obj->img, (TILE_SIZE * x), (TILE_SIZE * y));
-			x++;
-		}
-		y++;
-	}
-}
-
-
 

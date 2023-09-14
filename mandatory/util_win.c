@@ -7,32 +7,6 @@ int ft_shutdown_game(t_game *game)
 	ft_close(game);
 	exit(1);
 }
-
-int ft_keyboard(int key, t_game *game)
-{
-	if (key ==  65307)
-		ft_shutdown_game(game);
-	if (key == 65363)
-		game->player->axis->x += 5;
-	return (0);
-}
-
-void ft_open_window(t_game *game)
-{
-	game->win->width = (TILE_SIZE * (game)->map->axis->x);
-	game->win->height = (TILE_SIZE * (game)->map->axis->y);
-	game->win->win_ptr = mlx_new_window(game->mlx,game->win->width,
-										   game->win->height,"Magic World of Morrigan");
-	if (game->win->win_ptr == NULL)
-	{
-		ft_printf("ERROR: mlx_error while opening window");
-		exit(1);
-	}
-	ft_create_sprites(game);
-	ft_print_map (game);
-
-}
-
 void ft_clear_grid(t_game *game)
 {
 	int clear;

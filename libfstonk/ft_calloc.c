@@ -14,7 +14,7 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*pointer;
+	char	*pointer;
 	int		result;
 
 	pointer = NULL;
@@ -22,7 +22,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	if (!nmemb || !size || nmemb == result / size)
 		pointer = malloc(result);
 	if (pointer)
-		while (result-- >= 0)
-			*(unsigned char *)(pointer + result) = 0;
-	return (pointer);
+		while (--result >= 0)
+			pointer[result] = 0;
+	return ((void *)pointer);
 }

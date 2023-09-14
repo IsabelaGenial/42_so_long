@@ -20,15 +20,6 @@ static void    ft_render_ghost(t_game *game);
 static void    ft_render_exit(t_game *game);
 static void ft_render_moves(t_game *game);
 
-static void	my_mlx_pixel_put(t_draw *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_width + x * (data->bits_per_pixel / 8));
-	*(unsigned int *) dst = color;
-	return ;
-}
-
 void ft_create_sprites (t_game *game)
 {
 	ft_render_wall(game);
@@ -36,7 +27,7 @@ void ft_create_sprites (t_game *game)
 	ft_render_player(game);
 	ft_render_pickup(game);
 	ft_render_ghost(game);
-	ft_render_moves(game);
+	ft_render_exit(game);
 }
 
 static void ft_render_ghost(t_game *game)
@@ -80,12 +71,6 @@ static void ft_render_player(t_game *game)
 
 static void ft_render_wall(t_game *game)
 {
-	int width;
-	int height;
-
-	void *img;
-	char *s = "../images/tree.xpm";
-
 	game->map->wall->obj->img = mlx_xpm_file_to_image(game->mlx,
 	                                                   game->map->wall->obj->path[0],
 	                                                   &game->map->wall->obj->width,
@@ -109,30 +94,6 @@ static void ft_render_exit(t_game *game)
 	}
 }
 
-static void ft_render_moves(t_game *game)
-{
-	int	x;
-	int	y;
-
-	game->draw->img = mlx_new_image(game->mlx, 56, 30);
-	if (game->draw->img == NULL)
-		ft_printf("MLX_ERROR: creat moves image");
-	game->draw->addr = mlx_get_data_addr(game->draw->img,
-	                                     &game->draw->bits_per_pixel, &game->draw->line_width,
-	                                     &game->draw->endian);
-	x = -1;
-	while (++x < 56)
-	{
-		y = -1;
-		while (++y < 30)
-		{
-			my_mlx_pixel_put(game->draw, x, y, 0xffffff);
-			if (x < 4 || x > 51 || y < 4 || y > 25)
-				my_mlx_pixel_put(game->draw, x, y, 0x000000);
-		}
-	}
-}
-
 static void    ft_render_pickup(t_game *game)
 {
 	game->collect->obj->img = mlx_xpm_file_to_image(game->mlx,
@@ -144,3 +105,4 @@ static void    ft_render_pickup(t_game *game)
 		exit(0);
 	}
 }
+
