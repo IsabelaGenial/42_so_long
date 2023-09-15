@@ -23,10 +23,8 @@ int	ft_render_window(t_game *game)
 			while (game->map->map_grid[y][x])
 			{
 				ft_render_object(x, y, game);
-				ft_printf("\ny: %d\n", y);
 				x++;
 			}
-			ft_printf("\nx: %d\n", x);
 			y++;
 		}
 		ft_render_player(game);

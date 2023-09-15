@@ -19,8 +19,7 @@ void ft_memory(t_game *game)
 	game->ghost->obj = ft_calloc(1, sizeof(t_img ));
 	if (!game->map || !game->win|| !game->player || !game->collect ||
 	    !game->player->axis || !game->map->axis || !game->player->obj ||
-		!game->map->map_grid || !game->ghost || !game->draw ||
-		!game->map->floor || !game->map->wall)
+		!game->ghost || !game->map->floor || !game->map->wall)
 		ft_printf("ERROR: Memory allocation failed");
 }
 void    ft_struct_supply(t_game *game)

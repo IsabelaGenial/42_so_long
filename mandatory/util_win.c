@@ -2,7 +2,7 @@
 
 int ft_shutdown_game(t_game *game)
 {
-	ft_close(game);
+	free_alloc(game);
 	exit(1);
 }
 void ft_clear_grid(t_game *game)
@@ -21,8 +21,9 @@ void ft_close(t_game *game)
 {
 	ft_clear_grid(game);
 	free_alloc(game);
-	mlx_destroy_window(game->mlx, game->win->win_ptr);
-	mlx_destroy_display(game->mlx);
+	free(game->win);
+	free(game);
+
 }
 
 void free_alloc(t_game *game)
@@ -33,6 +34,7 @@ mlx_destroy_image(game->mlx, game->player->obj->img);
 mlx_destroy_image(game->mlx, game->map->wall->obj->img);
 mlx_destroy_image(game->mlx, game->map->exit->img);
 mlx_destroy_image(game->mlx, game->collect->obj->img);
+	ft_clear_grid(game);
 	free(game->ghost->obj->path);
 	free(game->ghost->obj);
 	free(game->ghost);
@@ -53,10 +55,12 @@ mlx_destroy_image(game->mlx, game->collect->obj->img);
 	free(game->map->floor->obj);
 	free(game->map->floor);
 	free(game->map->map_grid);
-	free(game->win);
 	free(game->map);
+	mlx_destroy_window(game->mlx, game->win->win_ptr);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	free(game->win);
 	free(game);
-
 
 }
 t_axis ft_position(char element, t_game *game)
