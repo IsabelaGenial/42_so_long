@@ -8,7 +8,6 @@ void ft_image_bank_obj (t_game *see)
 	see->collect->obj->path = ft_calloc(2, sizeof(char *));
 	see->map->floor->obj->path = ft_calloc(2, sizeof(char *));
 	see->map->wall->obj->path = ft_calloc(2, sizeof(char *));
-	see->map->wall->obj->img = ft_calloc(1, sizeof(void *));
 	see->map->exit->path = ft_calloc(1, sizeof(char *));
 	if (!see->ghost->obj->path || !see->player->obj->path || !see->collect->obj->path
 		|| !see->map->floor->obj->path || !see->map->wall->obj->path)

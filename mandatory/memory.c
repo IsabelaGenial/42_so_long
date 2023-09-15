@@ -2,12 +2,10 @@
 
 void ft_memory(t_game *game)
 {
-	game->draw = ft_calloc(1, sizeof(t_draw));
 	game->win = ft_calloc(1, sizeof(t_win));
 	game->map = ft_calloc(1, sizeof(t_map));
 	game->map->exit = ft_calloc(1, sizeof(t_img));
 	game->map->axis = ft_calloc(1, sizeof(t_axis));
-	game->map->map_grid = ft_calloc(1, sizeof(char **));
 	game->map->floor = ft_calloc(1,sizeof (t_obj));
 	game->map->floor->obj = ft_calloc(1,sizeof (t_img));
 	game->map->wall = ft_calloc(1,sizeof (t_obj));

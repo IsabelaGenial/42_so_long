@@ -52,7 +52,6 @@ typedef struct S_MAP
 	int     player_count;
 	int     exit_counter;
 	char    **map_grid;
-	char    *map_path;
 	t_axis  *axis;
 	t_img 	*exit;
 	t_obj	*floor;
@@ -111,4 +110,5 @@ void    ft_struct_supply(t_game *game);
 void    ft_render_img(t_game *game);
 int     ft_shutdown_game(t_game *game);
 void	ft_print_map (t_game *game);
+void    free_alloc(t_game *game);
 #endif
