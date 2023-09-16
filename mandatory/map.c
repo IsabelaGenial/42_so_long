@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: igenial <igenial@student.42sp.org.br>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/16 04:53:24 by igenial           #+#    #+#             */
+/*   Updated: 2023/09/16 04:56:07 by igenial          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "so_long.h"
 
-int ft_handle_map_input (int count_arg, char *map, t_game *game)
+int	ft_handle_map_input(int count_arg, char *map, t_game *game)
 {
 	if (count_arg != 2)
 	{
@@ -13,10 +24,9 @@ int ft_handle_map_input (int count_arg, char *map, t_game *game)
 		else
 		{
 			ft_printf("ERROR: We need only the "
-			          "program name and a map {./program_name map}\n");
+				"program name and a map {./program_name map}\n");
 			exit(1);
 		}
-
 	}
 	else if (!ft_strnstr(map, ".ber", ft_strlen(map)))
 	{
@@ -28,10 +38,10 @@ int ft_handle_map_input (int count_arg, char *map, t_game *game)
 	return (0);
 }
 
-void    ft_check_map(t_game *game)
+void	ft_check_map(t_game *game)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = 0;
 	while (game->map->map_grid[y])
@@ -56,7 +66,7 @@ void    ft_check_map(t_game *game)
 	}
 }
 
-void ft_check_object (t_game *game)
+void	ft_check_object(t_game *game)
 {
 	if (game->map->player_count != 1)
 	{

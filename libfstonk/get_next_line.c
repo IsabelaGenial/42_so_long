@@ -6,7 +6,7 @@
 /*   By: igenial <igenial@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 19:32:38 by igenial           #+#    #+#             */
-/*   Updated: 2023/06/21 21:59:52 by igenial          ###   ########.fr       */
+/*   Updated: 2023/09/16 04:50:50 by igenial          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,3 @@ static char	*ft_get_rest(char *temp_buffer)
 	free(temp_buffer);
 	return (buffer);
 }
-
-

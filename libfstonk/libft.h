@@ -6,7 +6,7 @@
 /*   By: igenial <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 21:49:53 by igenial           #+#    #+#             */
-/*   Updated: 2023/06/07 20:50:38 by igenial          ###   ########.fr       */
+/*   Updated: 2023/09/16 04:48:59 by igenial          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	*ft_memset(void *s, int c, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
-int     ft_putchar_fd(char c, int fd);
-int     ft_putnbr_fd(long nb, int fd);
-int     ft_putstr_fd(char *s, int fd);
+int		ft_putchar_fd(char c, int fd);
+int		ft_putnbr_fd(long nb, int fd);
+int		ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strtrim(char const *s1, char const *set);
@@ -74,8 +74,8 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 int		ft_lstsize(t_list *lst);
 char	*get_next_line(int fd);
-int	    ft_putptr(unsigned long nb);
-int     ft_puthex(unsigned int nb, char x);
-int     ft_printf(const char *print, ...);
+int		ft_putptr(unsigned long nb);
+int		ft_puthex(unsigned int nb, char x);
+int		ft_printf(const char *print, ...);
 
 #endif
