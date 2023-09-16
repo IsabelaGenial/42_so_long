@@ -3,7 +3,8 @@
 
 void ft_image_bank_obj (t_game *see)
 {
-	see->player->obj->path = ft_calloc(4,sizeof(char *));
+	see->player->obj->path = ft_calloc(5,sizeof(char *));
+	see->player->obj->img = ft_calloc(5,sizeof(void *));
 	see->ghost->obj->path = ft_calloc(2, sizeof(char *));
 	see->collect->obj->path = ft_calloc(2, sizeof(char *));
 	see->map->floor->obj->path = ft_calloc(2, sizeof(char *));
@@ -16,6 +17,7 @@ void ft_image_bank_obj (t_game *see)
 	see->player->obj->path[1] = "./images/cat/2.xpm";
 	see->player->obj->path[2] = "./images/cat/3.xpm";
 	see->player->obj->path[3] = "./images/cat/4.xpm";
+	see->player->obj->path[4] = "./images/cat/5.xpm";
 	see->ghost->obj->path[0] = "./images/ghost.xpm";
 	see->collect->obj->path[0] = "./images/pay.xpm";
 	see->map->floor->obj->path[0] = "./images/gram.xpm";

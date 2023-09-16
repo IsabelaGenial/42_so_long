@@ -45,6 +45,7 @@ static void ft_render_ghost(t_game *game)
 
 static void ft_render_floor(t_game *game)
 {
+
 	game->map->floor->obj->img = mlx_xpm_file_to_image(game->mlx,
 	                                              game->map->floor->obj->path[0],
 	                                              &game->map->floor->obj->width,
@@ -58,14 +59,20 @@ static void ft_render_floor(t_game *game)
 
 static void ft_render_player(t_game *game)
 {
-	game->player->obj->img = mlx_xpm_file_to_image(game->mlx,
-	                                             game->player->obj->path[0],
-	                                             &game->player->obj->width,
-												 &game->player->obj->height);
-	if(!game->player->obj->img)
+	int i;
+
+	i = 0;
+	while(i < 5)
 	{
-		ft_printf("ERROR: Creating brain\n");
-		exit(0);
+		game->player->obj->img[i] = mlx_xpm_file_to_image(game->mlx,
+		                                                  game->player->obj->path[i],
+		                                                  &game->player->obj->width,
+		                                                  &game->player->obj->height);
+		if (!game->player->obj->img[i]) {
+			ft_printf("ERROR: Creating brain\n");
+			exit(0);
+		}
+		i++;
 	}
 }
 

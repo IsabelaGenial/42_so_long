@@ -28,17 +28,24 @@ void ft_close(t_game *game)
 
 void free_alloc(t_game *game)
 {
+	int i;
+
+	i = -1;
 mlx_destroy_image(game->mlx, game->map->floor->obj->img);
 mlx_destroy_image(game->mlx, game->ghost->obj->img);
-mlx_destroy_image(game->mlx, game->player->obj->img);
 mlx_destroy_image(game->mlx, game->map->wall->obj->img);
-mlx_destroy_image(game->mlx, game->map->exit->img);
 mlx_destroy_image(game->mlx, game->collect->obj->img);
+	mlx_destroy_image(game->mlx, game->map->exit->img);
+	while (++i < 5)
+	{
+			mlx_destroy_image(game->mlx, game->player->obj->img[i]);
+	}
 	ft_clear_grid(game);
 	free(game->ghost->obj->path);
 	free(game->ghost->obj);
 	free(game->ghost);
 	free(game->player->obj->path);
+	free(game->player->obj->img);
 	free(game->player->obj);
 	free(game->player->axis);
 	free(game->player);
@@ -82,13 +89,4 @@ t_axis ft_position(char element, t_game *game)
 	coords.x = 0;
 	coords.y = 0;
 	return (coords);
-}
-
-int ft_key (void *game)
-{
-	t_game *key;
-
-	key = (t_game *)game;
-	mlx_key_hook(key->win->win_ptr, ft_keyboard, game);
-	return(0);
 }

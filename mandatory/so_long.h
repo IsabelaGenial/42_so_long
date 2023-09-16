@@ -29,7 +29,7 @@ typedef struct s_draw{
 typedef struct S_IMG
 {
 	char    **path;
-	void    *img;
+	void    **img;
 	int     width;
 	int     height;
 
