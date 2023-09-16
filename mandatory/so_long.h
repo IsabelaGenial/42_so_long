@@ -96,13 +96,13 @@ void	ft_render_object(int x, int y, t_game *game);
 int		ft_handle_map_input(int count_arg, char *map, t_game *game);
 int		ft_line_count(int fd);
 int		ft_key(void *game);
-void	ft_save_map(char *map, t_game *game);
-void	ft_check_map(t_game *game);
-void	ft_check_object(t_game *game);
+int     ft_save_map(char *map, t_game *game);
+int     ft_check_map(t_game *game);
+int     ft_check_object(t_game *game);
 int		ft_check_wall(t_game *game);
 
 //window//
-void	ft_input_validation(int count_arg, char *arg, t_game *game);
+int     ft_input_validation(int count_arg, char *arg, t_game *game);
 void	ft_open_window(t_game *game);
 void	ft_event_win(t_game *game);
 void	ft_close(t_game *game);
@@ -119,5 +119,6 @@ void	ft_render_img(t_game *game);
 int		ft_shutdown_game(t_game *game);
 void	ft_print_map(t_game *game);
 void	free_alloc(t_game *game);
+void    ft_free_img(t_game *game);
 
 #endif

@@ -17,7 +17,8 @@ int	main(int argc, char **argv)
 	t_game	*world;
 
 	world = malloc(sizeof(t_game) * 1);
-	ft_input_validation(argc, argv[1], world);
+	if (ft_input_validation(argc, argv[1], world))
+		ft_shutdown_game(world);
 	world->mlx = mlx_init();
 	ft_open_window(world);
 	ft_event_win(world);

@@ -31,4 +31,9 @@ fclean: clean
 
 re: fclean all
 
+valgrind: all
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME) map1.ber
+
+gdb: all
+	gdb --tui --args ./$(NAME) map1.ber
 .PHONY: all clean fclean re

@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-void	ft_save_map(char *map, t_game *game)
+int	ft_save_map(char *map, t_game *game)
 {
 	int	fd;
 	int	y;
@@ -24,15 +24,11 @@ void	ft_save_map(char *map, t_game *game)
 	close(fd);
 	if (!game->map->map_grid)
 	{
-		ft_printf("error in malloc map path\n");
-		exit(1);
+		return (1);
 	}
 	open(map, O_RDONLY);
 	if (!fd)
-	{
-		ft_printf("error in open file map\n");
-		exit(1);
-	}
+		return (1);
 	game->map->map_grid[y] = get_next_line(fd);
 	while (game->map->map_grid[y])
 	{
@@ -40,6 +36,7 @@ void	ft_save_map(char *map, t_game *game)
 		game->map->map_grid[y] = get_next_line(fd);
 	}
 	close(fd);
+	return (0);
 }
 
 int	ft_check_wall(t_game *game)
@@ -48,24 +45,23 @@ int	ft_check_wall(t_game *game)
 	int	x_axis;
 
 	y_axis = 0;
-	game->map->axis->x = ((int)ft_strlen(game->map->map_grid[0]) - 1);
+	game->map->axis->x = ((int)ft_strlen(game->map->map_grid[0]));
 	while (game->map->map_grid[y_axis])
 	{
 		x_axis = 0;
-		while (game->map->map_grid[y_axis][x_axis] != '\n' &&
-				game->map->map_grid[y_axis][x_axis] != '\0')
+		while (x_axis <= game->map->axis->x
+				&& game->map->map_grid[y_axis][x_axis + 1] != '\0')
 		{
 			if (y_axis == 0 || y_axis == game->map->axis->y
 				|| x_axis == 0 || x_axis == game->map->axis->x)
 			{
 				if (game->map->map_grid[y_axis][x_axis] != '1')
-				{
-					ft_printf("ERROR: in WALL\n");
-					exit(1);
-				}
+					return(1);
 			}
 			x_axis++;
 		}
+		if (x_axis < game->map->axis->x - 1 || x_axis >= game->map->axis->x)
+			return (1);
 		y_axis++;
 	}
 	return (0);

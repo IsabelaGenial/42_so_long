@@ -32,26 +32,36 @@ void	ft_clear_grid(t_game *game)
 
 void	ft_close(t_game *game)
 {
+	int	i;
+
+	i = -1;
+	while (++i < 5)
+	{
+		mlx_destroy_image(game->mlx, game->player->obj->img[i]);
+	}
 	ft_clear_grid(game);
 	free_alloc(game);
+	free(game->mlx);
 	free(game->win);
 	free(game);
+	exit(1);
 }
 
 void	free_alloc(t_game *game)
 {
-	int	i;
-
-	i = -1;
-	mlx_destroy_image(game->mlx, game->map->floor->obj->img);
-	mlx_destroy_image(game->mlx, game->ghost->obj->img);
-	mlx_destroy_image(game->mlx, game->map->wall->obj->img);
-	mlx_destroy_image(game->mlx, game->collect->obj->img);
-	mlx_destroy_image(game->mlx, game->map->exit->img);
-	while (++i < 5)
-	{
-			mlx_destroy_image(game->mlx, game->player->obj->img[i]);
-	}
+//
+//	int	i;
+////
+//	i = -1;
+//	mlx_destroy_image(game->mlx, game->map->floor->obj->img);
+//	mlx_destroy_image(game->mlx, game->ghost->obj->img);
+//	mlx_destroy_image(game->mlx, game->map->wall->obj->img);
+//	mlx_destroy_image(game->mlx, game->collect->obj->img);
+//	mlx_destroy_image(game->mlx, game->map->exit->img);
+//	while (++i < 5)
+//	{
+//		mlx_destroy_image(game->mlx, game->player->obj->img[i]);
+//	}
 	ft_clear_grid(game);
 	free(game->ghost->obj->path);
 	free(game->ghost->obj);
@@ -75,11 +85,27 @@ void	free_alloc(t_game *game)
 	free(game->map->floor);
 	free(game->map->map_grid);
 	free(game->map);
-	mlx_destroy_window(game->mlx, game->win->win_ptr);
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
+//	mlx_destroy_window(game->mlx, game->win->win_ptr);
+//	mlx_destroy_display(game->mlx);
+//	free(game->mlx);
 	free(game->win);
 	free(game);
+}
+
+void ft_free_img (t_game *game)
+{
+	int	i;
+
+	i = -1;
+	mlx_destroy_image(game->mlx, game->map->floor->obj->img);
+	mlx_destroy_image(game->mlx, game->ghost->obj->img);
+	mlx_destroy_image(game->mlx, game->map->wall->obj->img);
+	mlx_destroy_image(game->mlx, game->collect->obj->img);
+	mlx_destroy_image(game->mlx, game->map->exit->img);
+	while (++i < 5)
+	{
+		mlx_destroy_image(game->mlx, game->player->obj->img[i]);
+	}
 }
 
 t_axis	ft_position(char element, t_game *game)

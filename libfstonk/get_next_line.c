@@ -72,8 +72,6 @@ static char	*ft_get_line(char *temp_buffer)
 	i = 0;
 	while (temp_buffer[i] != '\n' && temp_buffer[i])
 			i++;
-	if (temp_buffer[i] == '\n')
-		i++;
 	line = ft_substr(temp_buffer, 0, i);
 	return (line);
 }

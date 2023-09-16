@@ -12,14 +12,21 @@
 
 #include "so_long.h"
 
-void	ft_input_validation(int count_arg, char *arg, t_game *game)
+int	ft_input_validation(int count_arg, char *arg, t_game *game)
 {
 	ft_handle_map_input(count_arg, arg, game);
-	ft_save_map(arg, game);
-	ft_check_map(game);
-	ft_check_object(game);
-	ft_check_wall(game);
+	if (ft_save_map(arg, game))
+	{
+		ft_printf("Error: Save map");
+		return (1);
+	}
+	if (ft_check_map(game) || ft_check_object(game) || ft_check_wall(game))
+	{
+		ft_printf("Error: check map");
+		return (1);
+	}
 	ft_image_bank_obj(game);
+	return (0);
 }
 
 void	ft_open_window(t_game *game)
