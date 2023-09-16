@@ -83,3 +83,12 @@ t_axis ft_position(char element, t_game *game)
 	coords.y = 0;
 	return (coords);
 }
+
+int ft_key (void *game)
+{
+	t_game *key;
+
+	key = (t_game *)game;
+	mlx_key_hook(key->win->win_ptr, ft_keyboard, game);
+	return(0);
+}

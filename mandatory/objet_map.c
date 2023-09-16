@@ -56,7 +56,6 @@ void	ft_render_object(int x, int y, t_game *game)
 	if (game->map->map_grid[y][x] == '0')
 		mlx_put_image_to_window(game->mlx,game->win->win_ptr,
 		                        game->map->floor->obj->img, (TILE_SIZE * x), (TILE_SIZE * y));
-	x++;
 }
 
 void    ft_walk_left(t_game *game)
@@ -64,12 +63,10 @@ void    ft_walk_left(t_game *game)
 	char	walker;
 
 	walker = game->map->map_grid[game->player->axis->y][game->player->axis->x - 1];
-	//game->player->direction = 'j';
 	if (walker == 'E' && game->player->pickup_count == game->map->pickup_counter)
 	{
 		game->player->axis->x--;
 		game->player->moves_count++;
-		//ft_render_you_won(game);
 	}
 	if (walker == 'G')
 		ft_close(game);
@@ -79,7 +76,7 @@ void    ft_walk_left(t_game *game)
 		game->player->moves_count++;
 		if (game->map->map_grid[game->player->axis->y][game->player->axis->x] == 'C')
 		{
-			game->map->map_grid[game->player->axis->x][game->player->axis->y] = '0';
+			game->map->map_grid[game->player->axis->y][game->player->axis->x] = '0';
 			game->player->pickup_count++;
 		}
 	}
@@ -89,13 +86,11 @@ void    ft_walk_right(t_game *game)
 {
 	char	walker;
 
-	walker = game->map->map_grid[game->player->axis->x][game->player->axis->y - 1];
-	//game->player->direction = 'j';
+	walker = game->map->map_grid[game->player->axis->y][game->player->axis->x + 1];
 	if (walker == 'E' && game->player->pickup_count == game->map->pickup_counter)
 	{
 		game->player->axis->x++;
 		game->player->moves_count++;
-		//ft_render_you_won(game);
 	}
 	if (walker == 'G')
 		ft_close(game);
@@ -103,9 +98,9 @@ void    ft_walk_right(t_game *game)
 	{
 		game->player->axis->x++;
 		game->player->moves_count++;
-		if (game->map->map_grid[game->player->axis->x][game->player->axis->y] == 'C')
+		if (game->map->map_grid[game->player->axis->y][game->player->axis->x] == 'C')
 		{
-			game->map->map_grid[game->player->axis->x][game->player->axis->y] = '0';
+			game->map->map_grid[game->player->axis->y][game->player->axis->x] = '0';
 			game->player->pickup_count++;
 		}
 	}
@@ -115,7 +110,7 @@ void    ft_walk_up(t_game *game)
 {
 	char	walker;
 
-	walker = game->map->map_grid[game->player->axis->x][game->player->axis->y - 1];
+	walker = game->map->map_grid[game->player->axis->y - 1][game->player->axis->x];
 	//game->player->direction = 'j';
 	if (walker == 'E' && game->player->pickup_count == game->map->pickup_counter)
 	{
@@ -129,9 +124,9 @@ void    ft_walk_up(t_game *game)
 	{
 		game->player->axis->y--;
 		game->player->moves_count++;
-		if (game->map->map_grid[game->player->axis->x][game->player->axis->y] == 'C')
+		if (game->map->map_grid[game->player->axis->y][game->player->axis->x] == 'C')
 		{
-			game->map->map_grid[game->player->axis->x][game->player->axis->y] = '0';
+			game->map->map_grid[game->player->axis->y][game->player->axis->x] = '0';
 			game->player->pickup_count++;
 		}
 	}
@@ -141,8 +136,7 @@ void    ft_walk_down(t_game *game)
 {
 	char	walker;
 
-	walker = game->map->map_grid[game->player->axis->x][game->player->axis->y - 1];
-	//game->player->direction = 'j';
+	walker = game->map->map_grid[game->player->axis->y + 1][game->player->axis->x];
 	if (walker == 'E' && game->player->pickup_count == game->map->pickup_counter)
 	{
 		game->player->axis->y++;
@@ -155,9 +149,9 @@ void    ft_walk_down(t_game *game)
 	{
 		game->player->axis->y++;
 		game->player->moves_count++;
-		if (game->map->map_grid[game->player->axis->x][game->player->axis->y] == 'C')
+		if (game->map->map_grid[game->player->axis->y][game->player->axis->x] == 'C')
 		{
-			game->map->map_grid[game->player->axis->x][game->player->axis->y] = '0';
+			game->map->map_grid[game->player->axis->y][game->player->axis->x] = '0';
 			game->player->pickup_count++;
 		}
 	}

@@ -39,7 +39,7 @@ int ft_check_wall(t_game *game)
 	while (game->map->map_grid[y_axis])
 	{
 		x_axis = 0;
-		while(game->map->map_grid[y_axis][x_axis] != '\n' && \
+		while(game->map->map_grid[y_axis][x_axis] != '\n' &&
 				game->map->map_grid[y_axis][x_axis] != '\0')
 		{
 			if (y_axis == 0 || y_axis == game->map->axis->y ||

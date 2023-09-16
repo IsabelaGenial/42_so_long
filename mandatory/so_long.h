@@ -86,6 +86,7 @@ void	ft_render_object(int x, int y, t_game *game);
 //map.//
 int     ft_handle_map_input (int count_arg, char *map, t_game *game);
 int     ft_line_count(int fd);
+int     ft_key (void *game);
 void    ft_save_map(char *map, t_game *game);
 void    ft_check_map(t_game *game);
 void    ft_check_object (t_game *game);
@@ -106,6 +107,7 @@ void    ft_walk_left(t_game *game);
 void    ft_walk_right(t_game *game);
 
 void    ft_walk_up(t_game *game);
+void    ft_walk_down(t_game *game);
 void    ft_struct_supply(t_game *game);
 void    ft_render_img(t_game *game);
 int     ft_shutdown_game(t_game *game);
