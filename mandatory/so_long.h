@@ -60,6 +60,7 @@ typedef struct S_MAP
 	int		pickup_counter;
 	int		player_count;
 	int		exit_counter;
+	int     ghost_counter;
 	char	**map_grid;
 	t_axis	*axis;
 	t_img	*exit;
@@ -87,6 +88,7 @@ typedef struct S_GAME
 }			t_game;
 
 //image bank.//
+t_map ft_chain_action(int x,int y, t_game *game);
 void	ft_image_bank_obj(t_game *see);
 void	ft_create_sprites(t_game *game);
 int		ft_render_window(t_game *game);

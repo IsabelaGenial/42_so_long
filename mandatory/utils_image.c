@@ -37,3 +37,47 @@ void	ft_image_bank_obj(t_game *see)
 	see->map->exit->path[0] = "./images/exit.xpm";
 	*see->player->axis = ft_position('P', see);
 }
+
+t_map   ft_chain_action(int x,int y, t_game *game);
+int ft_check_position(int x, int y, char p, t_game *game);
+
+t_map ft_chain_action(int x,int y, t_game *game)
+{
+	t_map collect;
+	ft_bzero(&collect, sizeof(t_map));
+	if (game->map->map_grid[y][x] == '0' || game->map->map_grid[y][x] == 'C')
+	{
+		collect.exit_counter += ft_check_position(x, y, 'E', game);
+		collect.pickup_counter += ft_check_position(x, y, 'C', game);
+		collect.player_count += ft_check_position(x, y, 'G', game);
+	}
+	ft_check_position(x, y, '0', game);
+	return (collect);
+}
+ int ft_check_position(int x, int y, char p, t_game *game)
+ {
+	int pos;
+
+	pos = 0;
+	if (game->map->map_grid[y][x - 1] == p && (x - 1) >= 0)
+	{
+		pos += 1;
+		ft_chain_action((x - 1), y, game);
+	}
+	if (game->map->map_grid[y][x + 1] == p && (x + 1) <= game->map->axis->x)
+	{
+		pos += 1;
+		ft_chain_action((x + 1), y, game);
+	}
+	if (game->map->map_grid[y - 1][x] == p && (y - 1) <= 0)
+	{
+		pos += 1;
+		ft_chain_action((x), (y - 1), game);
+	}
+	if(game->map->map_grid[y + 1][x] == p && (y + 1) >= game->map->axis->y)
+	{
+		pos += 1;
+		ft_chain_action((x), (y + 1), game);
+	}
+	 return (pos);
+ }
