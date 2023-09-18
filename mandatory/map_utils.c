@@ -6,7 +6,7 @@
 /*   By: igenial <igenial@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 05:21:23 by igenial           #+#    #+#             */
-/*   Updated: 2023/09/16 05:27:14 by igenial          ###   ########.fr       */
+/*   Updated: 2023/09/18 16:59:17 by igenial          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	ft_check_wall(t_game *game)
 	{
 		x_axis = 0;
 		while (x_axis <= game->map->axis->x
-				&& game->map->map_grid[y_axis][x_axis + 1] != '\0')
+			&& game->map->map_grid[y_axis][x_axis + 1] != '\0')
 		{
 			if (y_axis == 0 || y_axis == game->map->axis->y
 				|| x_axis == 0 || x_axis == game->map->axis->x)
 			{
 				if (game->map->map_grid[y_axis][x_axis] != '1')
-					return(1);
+					return (1);
 			}
 			x_axis++;
 		}

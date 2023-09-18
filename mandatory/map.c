@@ -6,7 +6,7 @@
 /*   By: igenial <igenial@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 04:53:24 by igenial           #+#    #+#             */
-/*   Updated: 2023/09/16 04:56:07 by igenial          ###   ########.fr       */
+/*   Updated: 2023/09/18 16:55:34 by igenial          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_handle_map_input(int count_arg, char *map, t_game *game)
 	return (0);
 }
 
-int     ft_check_map(t_game *game)
+int	ft_check_map(t_game *game)
 {
 	int	y;
 	int	x;
@@ -72,17 +72,17 @@ int	ft_check_object(t_game *game)
 	if (game->map->player_count != 1)
 	{
 		ft_printf("ERROR: The number of players is incorrect\n");
-		return(1);
+		return (1);
 	}
 	if (game->map->exit_counter != 1)
 	{
 		ft_printf("ERROR: The number of exit is incorrect\n");
-		return(1);
+		return (1);
 	}
 	if (game->map->pickup_counter < 1)
 	{
 		ft_printf("ERROR: The number of collectible is incorrect\n");
-		return(1);
+		return (1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: igenial <igenial@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 04:48:04 by igenial           #+#    #+#             */
-/*   Updated: 2023/09/16 05:40:21 by igenial          ###   ########.fr       */
+/*   Updated: 2023/09/18 18:25:09 by igenial          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct S_MAP
 	int		pickup_counter;
 	int		player_count;
 	int		exit_counter;
-	int     ghost_counter;
+	int		ghost_counter;
 	char	**map_grid;
 	t_axis	*axis;
 	t_img	*exit;
@@ -86,41 +86,50 @@ typedef struct S_GAME
 	t_map	*map;
 }			t_game;
 
-//image bank.//
-void	flood_fill(char **map, t_axis *game, t_axis *start);
-int     ft_route_validation(t_game *game);
-void	ft_image_bank_obj(t_game *see);
-void	ft_create_sprites(t_game *game);
+//images.//
+void	ft_render_wall(t_game *game);
+void	ft_render_floor(t_game *game);
+void	ft_render_player(t_game *game);
+void	ft_render_pickup(t_game *game);
+void	ft_create_player(t_game *game);
+void	ft_render_ghost(t_game *game);
+void	ft_render_exit(t_game *game);
 int		ft_render_window(t_game *game);
 void	ft_render_object(int x, int y, t_game *game);
-
+void	ft_image_bank_obj(t_game *see);
+void	ft_create_sprites(t_game *game);
+void	ft_print_map(t_game *game);
+void	ft_render_img(t_game *game);
 //map.//
+void	flood_fill(char **map, t_axis *game, t_axis *start);
 int		ft_handle_map_input(int count_arg, char *map, t_game *game);
+int		ft_route_validation(t_game *game);
 int		ft_line_count(int fd);
-int		ft_key(void *game);
-int     ft_save_map(char *map, t_game *game);
-int     ft_check_map(t_game *game);
-int     ft_check_object(t_game *game);
+int		ft_save_map(char *map, t_game *game);
+int		ft_check_map(t_game *game);
+int		ft_check_object(t_game *game);
 int		ft_check_wall(t_game *game);
-
-//window//
-int     ft_input_validation(int count_arg, char *arg, t_game *game);
+int		ft_input_validation(int count_arg, char *arg, t_game *game);
+t_axis	ft_position(char element, t_game *game);
+//manager.//
 void	ft_open_window(t_game *game);
 void	ft_event_win(t_game *game);
-void	ft_close(t_game *game);
-void	ft_clear_grid(t_game *game);
-t_axis	ft_position(char element, t_game *game);
-void	ft_memory(t_game *game);
 int		ft_keyboard(int key, t_game *game);
+void	ft_close(t_game *game);
+void	ft_clear_grid(char **game);
+void	ft_memory(t_game *game);
 void	ft_walk_left(t_game *game);
 void	ft_walk_right(t_game *game);
 void	ft_walk_up(t_game *game);
 void	ft_walk_down(t_game *game);
+void	ft_walker_down(t_game *game);
+void	ft_walker_up(t_game *game);
+void	ft_walker_left(t_game *game);
+void	ft_walker_right(t_game *game);
 void	ft_struct_supply(t_game *game);
-void	ft_render_img(t_game *game);
 int		ft_shutdown_game(t_game *game);
-void	ft_print_map(t_game *game);
 void	free_alloc(t_game *game);
-void    ft_free_img(t_game *game);
-
+void	ft_free_img(t_game *game);
+void	ft_free_win(t_game *game);
+int		ft_key(void *game);
 #endif

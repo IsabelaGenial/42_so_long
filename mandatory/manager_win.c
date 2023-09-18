@@ -6,13 +6,13 @@
 /*   By: igenial <igenial@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 04:56:22 by igenial           #+#    #+#             */
-/*   Updated: 2023/09/16 05:01:35 by igenial          ###   ########.fr       */
+/*   Updated: 2023/09/18 16:56:18 by igenial          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int ft_input_validation(int count_arg, char *arg, t_game *game)
+int	ft_input_validation(int count_arg, char *arg, t_game *game)
 {
 	ft_handle_map_input(count_arg, arg, game);
 	if (ft_save_map(arg, game))
@@ -27,7 +27,10 @@ int ft_input_validation(int count_arg, char *arg, t_game *game)
 	}
 	ft_image_bank_obj(game);
 	if (ft_route_validation(game))
+	{
+		ft_printf("ERROR: ROUTE");
 		return (1);
+	}
 	return (0);
 }
 

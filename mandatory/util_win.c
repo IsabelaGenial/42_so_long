@@ -6,7 +6,7 @@
 /*   By: igenial <igenial@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 05:29:22 by igenial           #+#    #+#             */
-/*   Updated: 2023/09/16 05:31:15 by igenial          ###   ########.fr       */
+/*   Updated: 2023/09/18 17:00:14 by igenial          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 int	ft_shutdown_game(t_game *game)
 {
+	ft_free_img(game);
 	free_alloc(game);
 	exit(1);
 }
 
-void	ft_clear_grid(t_game *game)
+void	ft_clear_grid(char **game)
 {
 	int	clear;
 
 	clear = 0;
-	while (game->map->map_grid[clear])
+	while (game[clear])
 	{
-		free(game->map->map_grid[clear]);
+		free(game[clear]);
 		clear++;
 	}
 }
@@ -39,73 +40,12 @@ void	ft_close(t_game *game)
 	{
 		mlx_destroy_image(game->mlx, game->player->obj->img[i]);
 	}
-	ft_clear_grid(game);
+	ft_clear_grid(game->map->map_grid);
 	free_alloc(game);
 	free(game->mlx);
 	free(game->win);
 	free(game);
 	exit(1);
-}
-
-void	free_alloc(t_game *game)
-{
-//
-//	int	i;
-////
-//	i = -1;
-//	mlx_destroy_image(game->mlx, game->map->floor->obj->img);
-//	mlx_destroy_image(game->mlx, game->ghost->obj->img);
-//	mlx_destroy_image(game->mlx, game->map->wall->obj->img);
-//	mlx_destroy_image(game->mlx, game->collect->obj->img);
-//	mlx_destroy_image(game->mlx, game->map->exit->img);
-//	while (++i < 5)
-//	{
-//		mlx_destroy_image(game->mlx, game->player->obj->img[i]);
-//	}
-	ft_clear_grid(game);
-	free(game->ghost->obj->path);
-	free(game->ghost->obj);
-	free(game->ghost);
-	free(game->player->obj->path);
-	free(game->player->obj->img);
-	free(game->player->obj);
-	free(game->player->axis);
-	free(game->player);
-	free(game->collect->obj->path);
-	free(game->collect->obj);
-	free(game->collect);
-	free(game->map->wall->obj->path);
-	free(game->map->wall->obj);
-	free(game->map->wall);
-	free(game->map->axis);
-	free(game->map->exit->path);
-	free(game->map->exit);
-	free(game->map->floor->obj->path);
-	free(game->map->floor->obj);
-	free(game->map->floor);
-	free(game->map->map_grid);
-	free(game->map);
-//	mlx_destroy_window(game->mlx, game->win->win_ptr);
-//	mlx_destroy_display(game->mlx);
-//	free(game->mlx);
-	free(game->win);
-	free(game);
-}
-
-void ft_free_img (t_game *game)
-{
-	int	i;
-
-	i = -1;
-	mlx_destroy_image(game->mlx, game->map->floor->obj->img);
-	mlx_destroy_image(game->mlx, game->ghost->obj->img);
-	mlx_destroy_image(game->mlx, game->map->wall->obj->img);
-	mlx_destroy_image(game->mlx, game->collect->obj->img);
-	mlx_destroy_image(game->mlx, game->map->exit->img);
-	while (++i < 5)
-	{
-		mlx_destroy_image(game->mlx, game->player->obj->img[i]);
-	}
 }
 
 t_axis	ft_position(char element, t_game *game)
