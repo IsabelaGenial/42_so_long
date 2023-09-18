@@ -38,130 +38,78 @@ void	ft_image_bank_obj(t_game *see)
 	*see->player->axis = ft_position('P', see);
 }
 
-void fill(char **map, t_axis game, t_axis cur, char to_fill)
+void fill(char **map, t_axis *size, t_axis walk)
 {
-	if (cur.y < 0 || cur.y >= game.y || cur.x < 0 || cur.x >= game.x ||
-	    map[cur.y][cur.x] == '1' || map[cur.y][cur.x] == '#')
+	if (walk.y < 0 || walk.y >= size->y || walk.x < 0 || walk.x >= size->x ||
+	    map[walk.y][walk.x] == '1' || map[walk.y][walk.x] == '#')
 		return ;
-	if (map[cur.y][cur.x] == 'E')
-		return ;
-	else if (map[cur.y][cur.x] == 'C')
-		return ;
-	else if (map[cur.y][cur.x] == 'G')
-		return;
-
-	map[cur.y][cur.x] = '#';
-	fill(map, game, (t_axis){cur.x - 1, cur.y}, to_fill);
-	fill(map, game, (t_axis){cur.x + 1, cur.y}, to_fill);
-	fill(map, game, (t_axis){cur.x, cur.y - 1}, to_fill);
-	fill(map, game, (t_axis){cur.x, cur.y + 1}, to_fill);
+	if (map[walk.y][walk.x] == 'E')
+		map[walk.y][walk.x] = '#';
+	else if (map[walk.y][walk.x] == 'C')
+		map[walk.y][walk.x] = '#' ;
+	else if (map[walk.y][walk.x] == 'G')
+		map[walk.y][walk.x] = '#';
+//	t_axis *test = {.x = cur->x - 1, .y = cur->y};
+	map[walk.y][walk.x] = '#';
+	fill(map, size, (t_axis){walk.x - 1, walk.y});
+	fill(map, size, (t_axis){walk.x + 1, walk.y});
+	fill(map, size, (t_axis){walk.x, walk.y - 1});
+	fill(map, size, (t_axis){walk.x, walk.y + 1});
 }
 
-void flood_fill(char **map, t_axis game, t_axis start)
+int     ft_collect(char **map_grid)
 {
-	fill(map, game, start, map[start.y][start.x]);
-}
+	int	y;
+	int	x;
 
-int	has_walls(char **map, t_axis axis)
-{
-	int	i;
-
-	i = 0;
-	while (map[0][i])
+	y = 0;
+	while (map_grid[y])
 	{
-		if (map[0][i] == '#')
-			return (0);
-		i++;
-	}
-	i = 0;
-	while (map[axis.y - 1][i])
-	{
-		if (map[axis.y - 1][i] == '#')
-			return (0);
-		i++;
-	}
-	i = 1;
-	while (i < axis.y)
-	{
-		if (map[i][0] != '#' && map[i][axis.x - 1] != '#')
-			i++;
-		else
-			return (0);
-	}
-	return (1);
-}
-int	check_flowage(char **map_copy)
-{
-	int		i;
-	int		j;
-	int     index;
-
-	i = 0;
-	j = 0;
-	index = 0;
-	while (map_copy[i])
-	{
-		while (map_copy[i][j])
+		x = 0;
+		while (map_grid[y][x] && map_grid[y][x] != '\n')
 		{
-			if (map_copy[i][j] == 'E' || map_copy[i][j] == 'C')
-			{
-				while (map_copy[index])
-					free(map_copy[index++]);
-				return (0);
+			if (map_grid[y][x] == 'C') {
+				ft_printf("ERROR: collect.\n");
+				return (1);
 			}
-			j++;
+			if (map_grid[y][x] == 'E') {
+				ft_printf("ERROR: exit.\n");
+				return (1);
+			}
+			if (map_grid[y][x] == 'G') {
+				ft_printf("ERROR: ghost.\n");
+				return (1);
+			}
+			x++;
 		}
-		j = 0;
-		i++;
-	}
-	return (1);
-}
-int	check_fill(char **map_copy, t_axis size)
-{
-	int index;
-
-	index = 0;
-	if (!has_walls(map_copy, size))
-	{
-		ft_printf("Error\nMap has holes on the wall!\n");
-		while (map_copy[index])
-			free(map_copy[index++]);
-		return (0);
-	}
-	if (!check_flowage(map_copy))
-	{
-		ft_printf("Error\nPlayer is trapped\n");
-		return (0);
-	}
-	return (1);
-}
-
-
-int	is_trapped(t_game *game, char **map)
-{
-	t_axis 	size;
-	t_axis	player;
-	char	**map_copy;
-	int     index;
-
-	size.x = game->map->axis->y;
-	size.y = game->map->axis->x;
-	player.x = game->player->axis->y;
-	player.y = game->player->axis->x;
-	while (index <= size.x) {
-		ft_strlcpy(map_copy[index], game->map->map_grid[index], size.y);
-		index++;
-	}
-	flood_fill(map_copy, size, player);
-	if (!check_fill(map_copy, size))
-		return (1);
-	index = 0;
-	while (game->map->map_grid[index])
-	{
-		free(game->map->map_grid[index]);
-		index++;
+		y++;
 	}
 	return (0);
 }
 
+int ft_route_validation(t_game *game)
+{
+	t_map *fake_map;
+	t_axis walker;
+	int i;
 
+	i = 0;
+	fake_map = ft_calloc(1, sizeof(t_map));
+	fake_map->axis = ft_calloc(1, sizeof(t_axis));
+	ft_bzero(&walker, sizeof(t_axis));
+	fake_map->map_grid = ft_calloc(game->map->axis->y, sizeof(char *));
+
+	while (i <= game->map->axis->y)
+	{
+		fake_map->map_grid[i] = ft_substr(game->map->map_grid[i], 0, game->map->axis->x);
+		i++;
+	}
+	fake_map->axis->y = game->map->axis->y;
+	fake_map->axis->x = game->map->axis->x;
+	walker.x = game->player->axis->x;
+	walker.y = game->player->axis->y;
+	fill(fake_map->map_grid, fake_map->axis, walker);
+	if (ft_collect(fake_map->map_grid))
+		return (1);
+	return (0);
+}

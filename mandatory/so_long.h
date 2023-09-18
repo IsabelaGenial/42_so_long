@@ -28,13 +28,13 @@ typedef struct S_AXIS
 	int	y;
 }		t_axis;
 
-typedef struct s_draw{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_width;
-	int		endian;
-}			t_draw;
+//typedef struct s_draw{
+////	void	*img;
+////	char	*addr;
+////	int		bits_per_pixel;
+////	int		line_width;
+////	int		endian;
+////}			t_draw;
 
 typedef struct S_IMG
 {
@@ -84,12 +84,11 @@ typedef struct S_GAME
 	t_obj	*ghost;
 	t_obj	*collect;
 	t_map	*map;
-	t_draw	*draw;
 }			t_game;
 
 //image bank.//
-void	flood_fill(char **map, t_axis game, t_axis start);
-int	is_trapped(t_game *game, char **map);
+void	flood_fill(char **map, t_axis *game, t_axis *start);
+int     ft_route_validation(t_game *game);
 void	ft_image_bank_obj(t_game *see);
 void	ft_create_sprites(t_game *game);
 int		ft_render_window(t_game *game);

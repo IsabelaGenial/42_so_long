@@ -26,7 +26,7 @@ int ft_input_validation(int count_arg, char *arg, t_game *game)
 		return (1);
 	}
 	ft_image_bank_obj(game);
-	if (is_trapped(game, game->map->map_grid))
+	if (ft_route_validation(game))
 		return (1);
 	return (0);
 }
