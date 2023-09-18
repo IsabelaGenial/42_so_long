@@ -88,7 +88,8 @@ typedef struct S_GAME
 }			t_game;
 
 //image bank.//
-t_map ft_chain_action(int x,int y, t_game *game);
+void	flood_fill(char **map, t_axis game, t_axis start);
+int	is_trapped(t_game *game, char **map);
 void	ft_image_bank_obj(t_game *see);
 void	ft_create_sprites(t_game *game);
 int		ft_render_window(t_game *game);

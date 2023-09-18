@@ -12,10 +12,8 @@
 
 #include "so_long.h"
 
-int	ft_input_validation(int count_arg, char *arg, t_game *game)
+int ft_input_validation(int count_arg, char *arg, t_game *game)
 {
-	t_map map_obj;
-	ft_bzero(&map_obj, sizeof(t_map));
 	ft_handle_map_input(count_arg, arg, game);
 	if (ft_save_map(arg, game))
 	{
@@ -28,10 +26,7 @@ int	ft_input_validation(int count_arg, char *arg, t_game *game)
 		return (1);
 	}
 	ft_image_bank_obj(game);
-	map_obj =  ft_chain_action(game->player->axis->x, game->player->axis->y, game);
-	if (!(game->map->pickup_counter == map_obj.pickup_counter
-		|| game->map->exit_counter == map_obj.exit_counter
-		|| game->map->ghost_counter == map_obj.ghost_counter))
+	if (is_trapped(game, game->map->map_grid))
 		return (1);
 	return (0);
 }

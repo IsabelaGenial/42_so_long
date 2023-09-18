@@ -38,46 +38,130 @@ void	ft_image_bank_obj(t_game *see)
 	*see->player->axis = ft_position('P', see);
 }
 
-t_map   ft_chain_action(int x,int y, t_game *game);
-int ft_check_position(int x, int y, char p, t_game *game);
-
-t_map ft_chain_action(int x,int y, t_game *game)
+void fill(char **map, t_axis game, t_axis cur, char to_fill)
 {
-	t_map collect;
-	ft_bzero(&collect, sizeof(t_map));
-	if (game->map->map_grid[y][x] == '0' || game->map->map_grid[y][x] == 'C')
-	{
-		collect.exit_counter += ft_check_position(x, y, 'E', game);
-		collect.pickup_counter += ft_check_position(x, y, 'C', game);
-		collect.player_count += ft_check_position(x, y, 'G', game);
-	}
-	ft_check_position(x, y, '0', game);
-	return (collect);
-}
- int ft_check_position(int x, int y, char p, t_game *game)
- {
-	int pos;
+	if (cur.y < 0 || cur.y >= game.y || cur.x < 0 || cur.x >= game.x ||
+	    map[cur.y][cur.x] == '1' || map[cur.y][cur.x] == '#')
+		return ;
+	if (map[cur.y][cur.x] == 'E')
+		return ;
+	else if (map[cur.y][cur.x] == 'C')
+		return ;
+	else if (map[cur.y][cur.x] == 'G')
+		return;
 
-	pos = 0;
-	if (game->map->map_grid[y][x - 1] == p && (x - 1) >= 0)
+	map[cur.y][cur.x] = '#';
+	fill(map, game, (t_axis){cur.x - 1, cur.y}, to_fill);
+	fill(map, game, (t_axis){cur.x + 1, cur.y}, to_fill);
+	fill(map, game, (t_axis){cur.x, cur.y - 1}, to_fill);
+	fill(map, game, (t_axis){cur.x, cur.y + 1}, to_fill);
+}
+
+void flood_fill(char **map, t_axis game, t_axis start)
+{
+	fill(map, game, start, map[start.y][start.x]);
+}
+
+int	has_walls(char **map, t_axis axis)
+{
+	int	i;
+
+	i = 0;
+	while (map[0][i])
 	{
-		pos += 1;
-		ft_chain_action((x - 1), y, game);
+		if (map[0][i] == '#')
+			return (0);
+		i++;
 	}
-	if (game->map->map_grid[y][x + 1] == p && (x + 1) <= game->map->axis->x)
+	i = 0;
+	while (map[axis.y - 1][i])
 	{
-		pos += 1;
-		ft_chain_action((x + 1), y, game);
+		if (map[axis.y - 1][i] == '#')
+			return (0);
+		i++;
 	}
-	if (game->map->map_grid[y - 1][x] == p && (y - 1) <= 0)
+	i = 1;
+	while (i < axis.y)
 	{
-		pos += 1;
-		ft_chain_action((x), (y - 1), game);
+		if (map[i][0] != '#' && map[i][axis.x - 1] != '#')
+			i++;
+		else
+			return (0);
 	}
-	if(game->map->map_grid[y + 1][x] == p && (y + 1) >= game->map->axis->y)
+	return (1);
+}
+int	check_flowage(char **map_copy)
+{
+	int		i;
+	int		j;
+	int     index;
+
+	i = 0;
+	j = 0;
+	index = 0;
+	while (map_copy[i])
 	{
-		pos += 1;
-		ft_chain_action((x), (y + 1), game);
+		while (map_copy[i][j])
+		{
+			if (map_copy[i][j] == 'E' || map_copy[i][j] == 'C')
+			{
+				while (map_copy[index])
+					free(map_copy[index++]);
+				return (0);
+			}
+			j++;
+		}
+		j = 0;
+		i++;
 	}
-	 return (pos);
- }
+	return (1);
+}
+int	check_fill(char **map_copy, t_axis size)
+{
+	int index;
+
+	index = 0;
+	if (!has_walls(map_copy, size))
+	{
+		ft_printf("Error\nMap has holes on the wall!\n");
+		while (map_copy[index])
+			free(map_copy[index++]);
+		return (0);
+	}
+	if (!check_flowage(map_copy))
+	{
+		ft_printf("Error\nPlayer is trapped\n");
+		return (0);
+	}
+	return (1);
+}
+
+
+int	is_trapped(t_game *game, char **map)
+{
+	t_axis 	size;
+	t_axis	player;
+	char	**map_copy;
+	int     index;
+
+	size.x = game->map->axis->y;
+	size.y = game->map->axis->x;
+	player.x = game->player->axis->y;
+	player.y = game->player->axis->x;
+	while (index <= size.x) {
+		ft_strlcpy(map_copy[index], game->map->map_grid[index], size.y);
+		index++;
+	}
+	flood_fill(map_copy, size, player);
+	if (!check_fill(map_copy, size))
+		return (1);
+	index = 0;
+	while (game->map->map_grid[index])
+	{
+		free(game->map->map_grid[index]);
+		index++;
+	}
+	return (0);
+}
+
+
