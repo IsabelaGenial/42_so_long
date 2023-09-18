@@ -41,12 +41,10 @@ void	ft_image_bank_obj(t_game *see)
 void fill(char **map, t_axis *size, t_axis walk)
 {
 	if (walk.y < 0 || walk.y >= size->y || walk.x < 0 || walk.x >= size->x ||
-	    map[walk.y][walk.x] == '1' || map[walk.y][walk.x] == '#')
+	    map[walk.y][walk.x] == '1' || map[walk.y][walk.x] == '#' || map[walk.y][walk.x] == 'E')
 		return ;
-	if (map[walk.y][walk.x] == 'E')
+	if (map[walk.y][walk.x] == 'C')
 		map[walk.y][walk.x] = '#';
-	else if (map[walk.y][walk.x] == 'C')
-		map[walk.y][walk.x] = '#' ;
 	else if (map[walk.y][walk.x] == 'G')
 		map[walk.y][walk.x] = '#';
 //	t_axis *test = {.x = cur->x - 1, .y = cur->y};
@@ -70,10 +68,6 @@ int     ft_collect(char **map_grid)
 		{
 			if (map_grid[y][x] == 'C') {
 				ft_printf("ERROR: collect.\n");
-				return (1);
-			}
-			if (map_grid[y][x] == 'E') {
-				ft_printf("ERROR: exit.\n");
 				return (1);
 			}
 			if (map_grid[y][x] == 'G') {
