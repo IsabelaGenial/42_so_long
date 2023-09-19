@@ -41,18 +41,18 @@ void	ft_image_bank_obj(t_game *see)
 void	fill(char **map, t_axis *size, t_axis walk)
 {
 	if (walk.y < 0 || walk.y >= size->y || walk.x < 0 || walk.x >= size->x
-		|| map[walk.y][walk.x] == '1' || map[walk.y][walk.x] == '#'
-		|| map[walk.y][walk.x] == 'E')
+		|| map[walk.y][walk.x] == '1' || map[walk.y][walk.x] == '#')
 		return ;
-	if (map[walk.y][walk.x] == 'C')
+	if (map[walk.y][walk.x] == 'E' || map[walk.y][walk.x] == 'G' )
+	{
 		map[walk.y][walk.x] = '#';
-	else if (map[walk.y][walk.x] == 'G')
-		map[walk.y][walk.x] = '#';
+		return ;
+	}
 	map[walk.y][walk.x] = '#';
+	fill(map, size, (t_axis){walk.x, walk.y + 1});
+	fill(map, size, (t_axis){walk.x, walk.y - 1});
 	fill(map, size, (t_axis){walk.x - 1, walk.y});
 	fill(map, size, (t_axis){walk.x + 1, walk.y});
-	fill(map, size, (t_axis){walk.x, walk.y - 1});
-	fill(map, size, (t_axis){walk.x, walk.y + 1});
 }
 
 int	ft_collect(char **map_grid)
@@ -67,15 +67,11 @@ int	ft_collect(char **map_grid)
 		while (map_grid[y][x] && map_grid[y][x] != '\n')
 		{
 			if (map_grid[y][x] == 'C')
-			{
-				ft_printf("ERROR: collect.\n");
-				return (1);
-			}
+				return (ft_printf("ERROR: collect.\n"));
+			if (map_grid[y][x] == 'E')
+				return (ft_printf("ERROR: exit.\n"));
 			if (map_grid[y][x] == 'G')
-			{
-				ft_printf("ERROR: ghost.\n");
-				return (1);
-			}
+				return (ft_printf("ERROR: ghost.\n"));
 			x++;
 		}
 		y++;
@@ -93,7 +89,7 @@ int	ft_route_validation(t_game *game)
 	fake_map = ft_calloc(1, sizeof(t_map));
 	fake_map->axis = ft_calloc(1, sizeof(t_axis));
 	ft_bzero(&walker, sizeof(t_axis));
-	fake_map->map_grid = ft_calloc(game->map->axis->y, sizeof(char *));
+	fake_map->map_grid = ft_calloc(game->map->axis->y + 1, sizeof(char *));
 	while (i <= game->map->axis->y)
 	{
 		fake_map->map_grid[i] = ft_substr(game->map->map_grid[i], \
@@ -106,15 +102,7 @@ int	ft_route_validation(t_game *game)
 	walker.y = game->player->axis->y;
 	fill(fake_map->map_grid, fake_map->axis, walker);
 	if (ft_collect(fake_map->map_grid))
-	{
-		free(fake_map->axis);
-		free(fake_map->map_grid);
-		free(fake_map);
-		return (1);
-	}
-	ft_clear_grid(fake_map->map_grid);
-	free(fake_map->axis);
-	free(fake_map->map_grid);
-	free(fake_map);
+		return (ft_flood_free(fake_map));
+	ft_flood_free(fake_map);
 	return (0);
 }
