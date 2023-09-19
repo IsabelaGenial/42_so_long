@@ -44,7 +44,6 @@ int	ft_close(t_game *game)
 	ft_free_win(game);
 	free(game->win);
 	free(game);
-	ft_printf("aqui");
 	exit(1);
 	return (1);
 }
