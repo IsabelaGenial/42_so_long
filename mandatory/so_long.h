@@ -101,7 +101,6 @@ void	ft_create_sprites(t_game *game);
 void	ft_print_map(t_game *game);
 void	ft_render_img(t_game *game);
 //map.//
-void	flood_fill(char **map, t_axis *game, t_axis *start);
 int		ft_handle_map_input(int count_arg, char *map, t_game *game);
 int		ft_route_validation(t_game *game);
 int		ft_line_count(int fd);
@@ -115,7 +114,7 @@ t_axis	ft_position(char element, t_game *game);
 void	ft_open_window(t_game *game);
 void	ft_event_win(t_game *game);
 int		ft_keyboard(int key, t_game *game);
-void	ft_close(t_game *game);
+int		ft_close(t_game *game);
 void	ft_clear_grid(char **game);
 void	ft_memory(t_game *game);
 void	ft_walk_left(t_game *game);
@@ -131,5 +130,5 @@ int		ft_shutdown_game(t_game *game);
 void	free_alloc(t_game *game);
 void	ft_free_img(t_game *game);
 void	ft_free_win(t_game *game);
-int		ft_key(void *game);
+int		ft_flood_free(t_map *fake_map);
 #endif
