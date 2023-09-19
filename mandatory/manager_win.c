@@ -50,7 +50,7 @@ void	ft_open_window(t_game *game)
 
 void	ft_event_win(t_game *game)
 {
-	mlx_hook(game->win->win_ptr, 17, 1L << 3, ft_shutdown_game, game);
+	mlx_hook(game->win->win_ptr, 17, 1L << 3, ft_close, game);
 	mlx_hook(game->win->win_ptr, 02, (1L << 0), &ft_keyboard, game);
 	mlx_loop_hook(game->mlx, &ft_render_window, game);
 }
@@ -58,7 +58,7 @@ void	ft_event_win(t_game *game)
 int	ft_keyboard(int key, t_game *game)
 {
 	if (key == 65307)
-		ft_shutdown_game(game);
+		ft_close(game);
 	if (key == 65363 || key == 100)
 		ft_walk_right(game);
 	if (key == 65362 || key == 119)

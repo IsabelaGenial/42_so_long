@@ -14,8 +14,10 @@
 
 int	ft_shutdown_game(t_game *game)
 {
-	ft_free_img(game);
+	ft_clear_grid(game->map->map_grid);
 	free_alloc(game);
+	free(game->win);
+	free(game);
 	exit(1);
 }
 
@@ -31,21 +33,20 @@ void	ft_clear_grid(char **game)
 	}
 }
 
-void	ft_close(t_game *game)
+int	ft_close(t_game *game)
 {
 	int	i;
 
 	i = -1;
-	while (++i < 5)
-	{
-		mlx_destroy_image(game->mlx, game->player->obj->img[i]);
-	}
+	ft_free_img(game);
 	ft_clear_grid(game->map->map_grid);
 	free_alloc(game);
-	free(game->mlx);
+	ft_free_win(game);
 	free(game->win);
 	free(game);
+	ft_printf("aqui");
 	exit(1);
+	return (1);
 }
 
 t_axis	ft_position(char element, t_game *game)

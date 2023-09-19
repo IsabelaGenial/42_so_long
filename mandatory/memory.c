@@ -66,6 +66,7 @@ void	ft_free_img(t_game *game)
 
 void	ft_free_win(t_game *game)
 {
+	mlx_clear_window(game->mlx, game->win->win_ptr);
 	mlx_destroy_window(game->mlx, game->win->win_ptr);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
@@ -73,7 +74,6 @@ void	ft_free_win(t_game *game)
 
 void	free_alloc(t_game *game)
 {
-	ft_clear_grid(game->map->map_grid);
 	free(game->ghost->obj->path);
 	free(game->ghost->obj);
 	free(game->ghost);
@@ -96,7 +96,4 @@ void	free_alloc(t_game *game)
 	free(game->map->floor);
 	free(game->map->map_grid);
 	free(game->map);
-	ft_free_win(game);
-	free(game->win);
-	free(game);
 }

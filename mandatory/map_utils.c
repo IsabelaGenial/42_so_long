@@ -19,22 +19,22 @@ int	ft_save_map(char *map, t_game *game)
 
 	y = 0;
 	fd = open(map, O_RDONLY);
+	if (fd < 0)
+	{
+		free(game);
+		exit(1);
+	}
 	game->map->axis->y = (ft_line_count(fd));
 	game->map->map_grid = ft_calloc ((game->map->axis->y + 1), sizeof (char *));
 	close(fd);
 	if (!game->map->map_grid)
-	{
 		return (1);
-	}
 	open(map, O_RDONLY);
 	if (!fd)
 		return (1);
 	game->map->map_grid[y] = get_next_line(fd);
-	while (game->map->map_grid[y])
-	{
-		y++;
+	while (game->map->map_grid[y++])
 		game->map->map_grid[y] = get_next_line(fd);
-	}
 	close(fd);
 	return (0);
 }
