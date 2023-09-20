@@ -25,7 +25,7 @@ Before you can run this project, you'll need the following:
     
     bash
     
--   `gcc -o game main.c -lmlx -lX11 -lXext -lm` 
+-   `make` 
     
 -   Run the game:
     
